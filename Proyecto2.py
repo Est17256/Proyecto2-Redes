@@ -4,45 +4,42 @@ import getpass
 from optparse import OptionParser
 import sleekxmpp
 from sleekxmpp.exceptions import IqError, IqTimeout
+from sleekxmpp.xmlstream.stanzabase import ET, ElementBase
+from proyecto2Mods import *
 
-#Class for user register
-class Register(sleekxmpp.ClientXMPP):
-    #Init ClientXMPP object
-    def __init__(self, jid, password):
-        sleekxmpp.ClientXMPP.__init__(self, jid, password)
-        self.add_event_handler("session_start", self.start)
-        self.add_event_handler("register", self.register)
-    #Start the user registration
-    def start(self, event):
-        self.send_presence()
-        self.get_roster()
-        self.disconnect()
-    #user registration on server
-    def register(self, iq):
-        resp = self.Iq()
-        resp['type'] = 'set'
-        resp['register']['username'] = self.boundjid.user
-        resp['register']['password'] = self.password
-        try:
-            resp.send(now=True)
-            logging.info("Account ready for %s!" % self.boundjid)
-        except IqError as e:
-            logging.error("Could not register account: %s" % e.iq['error']['text'])
-            self.disconnect()
-        except IqTimeout:
-            logging.error("No response")
-            self.disconnect()
-#Create user function
-user = input("Enter the user with @redes2020.xyz: ")
-passw = getpass.getpass("Password: ")
-xmpp = Register(user, passw)
-xmpp.register_plugin('xep_0030')
-xmpp.register_plugin('xep_0004')
-xmpp.register_plugin('xep_0066')
-xmpp.register_plugin('xep_0077')
+while True:
+    print("1)Create Account")
+    print("2)Log In")
+    opcion = int(input("Select option"))
+    if opcion == 1:
+        user = input("Enter the user with @redes2020.xyz: ")
+        passw = getpass.getpass("Password: ")
+        xmpp = Register(user, passw)
+        xmpp.register_plugin('xep_0030')
+        xmpp.register_plugin('xep_0004')
+        xmpp.register_plugin('xep_0066')
+        xmpp.register_plugin('xep_0077')
 
-if xmpp.connect():
-    xmpp.process(block=True)
-    print("The user is ready")
-else:
-    print("Creation Fail")
+        if xmpp.connect():
+            xmpp.process(block=True)
+            print("The user is ready")
+        else:
+            print("No response")
+    elif opcion == 2:
+        user = input("User: ")
+        passw = getpass.getpass("Password: ")
+        client = Client(user, passw)
+        flag=True
+        while flag== True:
+            print("1)Log Off")
+            print("2)Eliminate Account")
+            opcion = int(input("Select option"))
+            if opcion == 1:
+                client.log_off()
+                flag=False
+            elif opcion == 2:
+                usuario = input("User: ")
+                client.un_register(usuario)
+                flag=False
+    else:
+        print("An error has occurred")
