@@ -33,13 +33,18 @@ while True:
         while flag== True:
             print("1)Log Off")
             print("2)Eliminate Account")
+            print("3)Send msg")
             opcion = int(input("Select option"))
             if opcion == 1:
                 client.log_off()
                 flag=False
             elif opcion == 2:
-                usuario = input("User: ")
-                client.un_register(usuario)
+                user = input("User: ")
+                client.un_register(user)
                 flag=False
+            elif opcion == 3:
+                user = input("chat with: ")
+                msg = input("msg: ")
+                client.send_msg(user, msg)
     else:
         print("An error has occurred")
