@@ -36,6 +36,8 @@ while True:
             print("3)Send msg")
             print("4)Add Contact")
             print("5)List of Contact")
+            print("6)create or join in a group chat")
+            print("7)Send message to group chat")
             opcion = int(input("Select option"))
             if opcion == 1:
                 client.log_off()
@@ -54,5 +56,13 @@ while True:
             elif opcion == 5:
                 print("Contacts list: ")
                 client.contacts()
+            elif opcion == 6:
+                group = input("name of the group with @conference.redes2020.xyz: ")
+                user = input("User: ")
+                client.join_room(group, user)
+            elif opcion == 7:
+                group = input("send to group with @conference.redes2020.xyz: ")
+                msg = input("msg: ")
+                client.send_group_msg(group, msg)
     else:
         print("An error has occurred")

@@ -101,3 +101,15 @@ class Client(sleekxmpp.ClientXMPP):
         contacts2=contacts[""]
         for i in contacts2:
             print(i)
+    #Join to another group chat
+    def join_room(self, group, user):
+        try:
+            self.plugin['xep_0045'].joinMUC(group, user)
+            print("Joined to group chat")
+        except IqError as e:
+            print("An error has occurred", e)
+        except IqTimeout:
+            print("No response")
+    #Send message to group chat
+    def send_group_msg(self, group, msg):
+        self.send_message(mto=group, mbody=msg, mtype='groupchat')
