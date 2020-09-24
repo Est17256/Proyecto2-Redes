@@ -61,7 +61,7 @@ python Proyecto2.py
 ### Files
 - Proyecto2.py
   - Contains the user interface
-- proyecto2Mods
+- proyecto2Mods.py
   - Contains all the logic and functions of the client
 ### More about XMPP and SleekXMPP
 - Documentation
