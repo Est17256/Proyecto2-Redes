@@ -58,6 +58,11 @@ pip install -r requirements.txt
 #In the folder of the repository use:
 python Proyecto2.py 
 ```
+### Files
+- Proyecto2.py
+  - Contains the user interface
+- proyecto2Mods
+  - Contains all the logic and functions of the client
 ### More about XMPP and SleekXMPP
 - Documentation
   - https://sleekxmpp.readthedocs.io/en/latest/index.html
