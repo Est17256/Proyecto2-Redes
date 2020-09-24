@@ -34,6 +34,8 @@ while True:
             print("1)Log Off")
             print("2)Eliminate Account")
             print("3)Send msg")
+            print("4)Add Contact")
+            print("5)List of Contact")
             opcion = int(input("Select option"))
             if opcion == 1:
                 client.log_off()
@@ -46,5 +48,11 @@ while True:
                 user = input("chat with: ")
                 msg = input("msg: ")
                 client.send_msg(user, msg)
+            elif opcion == 4:
+                user = input("User to add: ")
+                client.add_user(user)
+            elif opcion == 5:
+                print("Contacts list: ")
+                client.contacts()
     else:
         print("An error has occurred")

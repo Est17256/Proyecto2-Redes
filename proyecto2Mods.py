@@ -38,7 +38,7 @@ class Client(sleekxmpp.ClientXMPP):
     def __init__(self, jid, password):
         sleekxmpp.ClientXMPP.__init__(self, jid, password)
         self.add_event_handler("session_start", self.start)
-        # self.add_event_handler("message", self.mensajeria)
+        self.add_event_handler("message", self.recieve_msg)
 
         self.register_plugin('xep_0077')
         self.register_plugin('xep_0030') # Service Discovery
@@ -79,9 +79,25 @@ class Client(sleekxmpp.ClientXMPP):
             print("An error has occurred", e)
         except IqTimeout:
             print("No response")
-    #Recieve message from another client
+    #Recieve message from another client 
     def recieve_msg(self, msg):
         print(str(msg['from'].user), msg['body'])
     #Send message to another client
     def send_msg(self, user, msg):
         self.send_message(mto=user,mbody=msg,mtype="chat")
+    #subscription to another client
+    def add_user(self, jid):
+        try:
+            self.send_presence_subscription(pto=jid)
+            print("Contact added")
+        except IqError as e:
+            print("An error has occurred", e)
+        except IqTimeout:
+            print("No response")
+    #Print the list of the roster
+    def contacts(self):
+        self.get_roster()
+        contacts = self.client_roster.groups()
+        contacts2=contacts[""]
+        for i in contacts2:
+            print(i)
