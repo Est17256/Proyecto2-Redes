@@ -5,6 +5,7 @@ from optparse import OptionParser
 import sleekxmpp
 from sleekxmpp.exceptions import IqError, IqTimeout
 from sleekxmpp.xmlstream.stanzabase import ET, ElementBase
+import time
 #Class for user register
 class Register(sleekxmpp.ClientXMPP):
     #Init ClientXMPP object
@@ -81,9 +82,13 @@ class Client(sleekxmpp.ClientXMPP):
             print("No response")
     #Recieve message from another client 
     def recieve_msg(self, msg):
+        print("****Incoming message****")
+        time.sleep(3)
         print(str(msg['from'].user), msg['body'])
     #Send message to another client
     def send_msg(self, user, msg):
+        self.send_message(mto=user,mbody="****You have a new message****",mtype="chat")
+        time.sleep(3)
         self.send_message(mto=user,mbody=msg,mtype="chat")
     #subscription to another client
     def add_user(self, jid):
@@ -112,4 +117,6 @@ class Client(sleekxmpp.ClientXMPP):
             print("No response")
     #Send message to group chat
     def send_group_msg(self, group, msg):
+        self.send_message(mto=user,mbody="****You have a new group message****",mtype="chat")
+        time.sleep(3)
         self.send_message(mto=group, mbody=msg, mtype='groupchat')

@@ -7,9 +7,11 @@ from sleekxmpp.exceptions import IqError, IqTimeout
 from sleekxmpp.xmlstream.stanzabase import ET, ElementBase
 from proyecto2Mods import *
 
-while True:
+flag=True
+while flag==True:
     print("1)Create Account")
     print("2)Log In")
+    print("3)Close")
     opcion = int(input("Select option"))
     if opcion == 1:
         user = input("Enter the user with @redes2020.xyz: ")
@@ -29,8 +31,8 @@ while True:
         user = input("User: ")
         passw = getpass.getpass("Password: ")
         client = Client(user, passw)
-        flag=True
-        while flag== True:
+        flag2=True
+        while flag2== True:
             print("1)Log Off")
             print("2)Eliminate Account")
             print("3)Send msg")
@@ -41,11 +43,11 @@ while True:
             opcion = int(input("Select option"))
             if opcion == 1:
                 client.log_off()
-                flag=False
+                flag2=False
             elif opcion == 2:
                 user = input("User: ")
                 client.un_register(user)
-                flag=False
+                flag2=False
             elif opcion == 3:
                 user = input("chat with: ")
                 msg = input("msg: ")
@@ -64,5 +66,10 @@ while True:
                 group = input("send to group with @conference.redes2020.xyz: ")
                 msg = input("msg: ")
                 client.send_group_msg(group, msg)
+            else:
+                print("select a valid option")
+    elif opcion == 3:
+        print("Bye")
+        flag=False
     else:
         print("An error has occurred")
