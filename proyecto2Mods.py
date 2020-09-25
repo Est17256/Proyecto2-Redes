@@ -117,6 +117,6 @@ class Client(sleekxmpp.ClientXMPP):
             print("No response")
     #Send message to group chat
     def send_group_msg(self, group, msg):
-        self.send_message(mto=user,mbody="****You have a new group message****",mtype="chat")
+        self.send_message(mto=group,mbody="****You have a new group message****",mtype="chat")
         time.sleep(3)
         self.send_message(mto=group, mbody=msg, mtype='groupchat')
